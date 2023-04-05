@@ -87,13 +87,55 @@ int main(void)
     // registers to read
     
     /*      I2C Master Read - WHOAMI Register       */
-   
+    uint8_t whoami_reg;
+    
+    // call the reading function
+    ErrorCode error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS, LIS3DH_WHO_AM_I_REG_ADDR, &whoami_reg);
+    
+    // check if any NACK occurred
+    if (error == NO_ERROR)
+    {
+        sprintf(message, "Who am i register value: 0x%02X\r\n", whoami_reg);
+        UART_1_PutString(message);
+    }
+    else
+    {
+        UART_1_PutString("Error reading the who am i register");
+    }
     
     /*      I2C Master Read - STATUS Register       */
-  
+    uint8_t status_reg;
+    
+    // call the reading function
+    error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS, LIS3DH_STATUS_REG, &status_reg);
+    
+    // check if any NACK occurred
+    if (error == NO_ERROR)
+    {
+        sprintf(message, "Status register value: 0x%02X\r\n", status_reg);
+        UART_1_PutString(message);
+    }
+    else
+    {
+        UART_1_PutString("Error reading the status register\r\n");
+    }
     
     /*      I2C Master Read - CTRL Register 1       */
+    uint8_t ctrl_reg1;
     
+    // call the reading function
+    error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS, LIS3DH_CTRL_REG1, &ctrl_reg1);
+    
+    // check if any NACK occurred
+    if (error == NO_ERROR)
+    {
+        sprintf(message, "Control register 1 value: 0x%02X\r\n", ctrl_reg1);
+        UART_1_PutString(message);
+    }
+    else
+    {
+        UART_1_PutString("Error reading the control register 1\r\n");
+    }
     
     for(;;)
     {
